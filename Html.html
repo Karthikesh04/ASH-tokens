@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ASH TOKENS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="url(#gradient)"/>
+        <path d="M12 6C8.69 6 6 8.69 6 12C6 15.31 8.69 18 12 18C15.31 18 18 15.31 18 12C18 8.69 15.31 6 12 6Z" fill="black"/>
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF6B00"/>
+            <stop offset="100%" stop-color="#00C4FF"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <h1>Welcome to ASH TOKENS</h1>
+    <p>Earn tokens by completing tasks and play games for amazing rewards!</p>
+    
+    <div style="max-width: 400px; margin: 2rem auto;">
+      <input id="loginUsername" placeholder="Username" />
+      <input id="loginPassword" type="password" placeholder="Password" />
+      <br />
+      <button onclick="login()">Login</button>
+      <p style="margin-top: 1rem;">Don't have an account? <a href="#" onclick="showPage('signupPage')" style="color: var(--secondary); text-decoration: none;">Sign Up</a></p>
+    </div>
+  </div>
+
+  <!-- Signup Page -->
+  <div id="signupPage" class="container" style="display:none;">
+    <h1>Create Account</h1>
+    <p>Join our community and start earning today!</p>
+    
+    <div style="max-width: 400px; margin: 2rem auto;">
+      <input id="signupUsername" placeholder="Username" />
+      <input id="signupPassword" type="password" placeholder="Password" />
+      <br />
+      <button onclick="signup()">Sign Up</button>
+      <p style="margin-top: 1rem;">Already have an account? <a href="#" onclick="showPage('loginPage')" style="color: var(--secondary); text-decoration: none;">Login</a></p>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="mainPage" style="display:none;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h1 style="margin: 0;">ASH TOKENS</h1>
+        <button onclick="logout()" style="padding: 8px 16px; font-size: 0.8rem;">Logout</button>
+      </div>
+      
+      <div class="token-display">
+        <span id="tokenCount">0</span>
+        <!-- Replace with inline SVG since ash_token.svg is missing -->
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="url(#tokenGradient)"/>
+          <path d="M12 6C8.69 6 6 8.69 6 12C6 15.31 8.69 18 12 18C15.31 18 18 15.31 18 12C18 8.69 15.31 6 12 6Z" fill="black"/>
+          <defs>
+            <linearGradient id="tokenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF6B00"/>
+              <stop offset="100%" stop-color="#00C4FF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      
+      <div class="nav-buttons">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('tasks')">Tasks</button>
+        <button onclick="showPage('games')">Games</button>
+        <button onclick="showPage('stats')">My Stats</button>
+      </div>
+
+      <!-- Home Page -->
+      <div id="home">
+        <h2>Your Token Adventure</h2>
+        <p>Complete tasks to earn tokens, then use them to play games for a chance to win big!</p>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-label">Tasks Completed</div>
+            <div class="stat-value" id="completedTasks">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Total Tokens</div>
+            <div class="stat-value" id="totalTokens">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Games Played</div>
+            <div class="stat-value" id="dailyGames">0</div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+          <h3>How it works</h3>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 1rem;">
+            <div style="width: 30%; min-width: 200px; margin-bottom: 1rem;">
+              <div style="background: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">1</div>
+              <p>Complete tasks to earn tokens</p>
+            </div>
+            <div style="width: 30%; min-width: 200px; margin-bottom: 1rem;">
+              <div style="background: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">2</div>
+              <p>Use tokens to play games</p>
+            </div>
+            <div style="width: 30%; min-width: 200px; margin-bottom: 1rem;">
+              <div style="background: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">3</div>
+              <p>Win big and complete more tasks!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tasks Page -->
+      <div id="tasks" style="display:none;">
+        <h2>Complete Tasks</h2>
+        <p>Finish these tasks to earn tokens. All tasks reset every 24 hours.</p>
+        
+        <div class="progress-container">
+          <div class="progress-bar" id="taskProgress"></div>
+        </div>
+        
+        <div id="tasksList">
+          <!-- Tasks will be dynamically inserted here -->
+        </div>
+      </div>
+
+      <!-- Games Page -->
+      <div id="games" style="display:none;">
+        <h2>Play Games</h2>
+        <p>Choose a game to play and win tokens! Each game has different token requirements.</p>
+        
+        <div class="game-cards">
+          <div class="game-card" onclick="showGame('ticTacToe')">
+            <i class="fas fa-times"></i>
+            <h3>Tic Tac Toe</h3>
+            <p>50 tokens per game</p>
+          </div>
+          <div class="game-card" onclick="showGame('diceGame')">
+            <i class="fas fa-dice"></i>
+            <h3>Dice Roll</h3>
+            <p>30 tokens per roll</p>
+          </div>
+          <div class="game-card" onclick="showGame('slotsGame')">
+            <i class="fas fa-sliders-h"></i>
+            <h3>Slots</h3>
+            <p>40 tokens per spin</p>
+          </div>
+          <div class="game-card" onclick="showGame('memoryGame')">
+            <i class="fas fa-brain"></i>
+            <h3>Memory</h3>
+            <p>60 tokens per game</p>
+          </div>
+          <div class="game-card" onclick="showGame('triviaGame')">
+            <i class="fas fa-question"></i>
+            <h3>Trivia</h3>
+            <p>20 tokens per question</p>
+          </div>
+        </div>
+        
+        <!-- Tic Tac Toe Game -->
+        <div id="ticTacToe" class="game-container" style="display:none;">
+          <h3>Tic Tac Toe</h3>
+          <div class="game-info">
+            <p>Play against the computer. Win to earn <strong>200 tokens</strong>! Costs <strong>50 tokens</strong> to play.</p>
+            <p id="ticTacToeStatus">Your turn (X)</p>
+          </div>
+          
+          <div class="game-grid" id="ticTacToeGrid">
+            <!-- Cells will be added dynamically -->
+          </div>
+          
+          <button onclick="startTicTacToe()">Start New Game (50 Tokens)</button>
+          <div class="game-result" id="ticTacToeResult"></div>
+        </div>
+        
+        <!-- Dice Game -->
+        <div id="diceGame" class="game-container" style="display:none;">
+          <h3>Dice Roll</h3>
+          <div class="game-info">
+            <p>Roll two dice. If you get doubles, win <strong>100 tokens</strong>! Costs <strong>30 tokens</strong> per roll.</p>
+          </div>
+          
+          <div class="dice-container">
+            <div class="dice" id="dice1">?</div>
+            <div class="dice" id="dice2">?</div>
+          </div>
+          
+          <button onclick="rollDice()">Roll Dice (30 Tokens)</button>
+          <div class="game-result" id="diceResult"></div>
+        </div>
+        
+        <!-- Slots Game -->
+        <div id="slotsGame" class="game-container" style="display:none;">
+          <h3>Slot Machine</h3>
+          <div class="game-info">
+            <p>Spin the slots. Match 3 symbols to win! Costs <strong>40 tokens</strong> per spin.</p>
+            <p>Payouts: 3x = 200 tokens, 2x = 50 tokens</p>
+          </div>
+          
+          <div class="slots-container">
+            <div class="slot" id="slot1">?</div>
+            <div class="slot" id="slot2">?</div>
+            <div class="slot" id="slot3">?</div>
+          </div>
+          
+          <button onclick="spinSlots()">Spin Slots (40 Tokens)</button>
+          <div class="game-result" id="slotsResult"></div>
+        </div>
+        
+        <!-- Memory Game -->
+        <div id="memoryGame" class="game-container" style="display:none;">
+          <h3>Memory Match</h3>
+          <div class="game-info">
+            <p>Find all matching pairs to win <strong>300 tokens</strong>! Costs <strong>60 tokens</strong> to play.</p>
+            <p id="memoryStatus">Pairs found: 0/6</p>
+          </div>
+          
+          <div class="memory-grid" id="memoryGrid">
+            <!-- Cards will be added dynamically -->
+          </div>
+          
+          <button onclick="startMemoryGame()">Start New Game (60 Tokens)</button>
+          <div class="game-result" id="memoryResult"></div>
+        </div>
+        
+        <!-- Trivia Game -->
+        <div id="triviaGame" class="game-container" style="display:none;">
+          <h3>Trivia Challenge</h3>
+          <div class="game-info">
+            <p>Answer trivia questions correctly to earn tokens! Costs <strong>20 tokens</strong> per question.</p>
+            <p>Correct answer: +50 tokens</p>
+          </div>
+          
+          <div id="triviaQuestionContainer">
+            <p id="triviaQuestion">Press "Start" to begin!</p>
+            <div class="trivia-options" id="triviaOptions">
+              <!-- Options will be added dynamically -->
+            </div>
+          </div>
+          
+          <button onclick="startTrivia()">Start New Question (20 Tokens)</button>
+          <div class="game-result" id="triviaResult"></div>
+        </div>
+      </div>
+      
+      <!-- Stats Page -->
+      <div id="stats" style="display:none;">
+        <h2>Your Statistics</h2>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-label">Total Tokens Earned</div>
+            <div class="stat-value" id="statsTotalEarned">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Highest Win</div>
+            <div class="stat-value" id="statsHighestWin">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Total Games</div>
+            <div class="stat-value" id="statsTotalGames">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Tasks Completed</div>
+            <div class="stat-value" id="statsTotalTasks">0</div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+          <h3>Recent Activity</h3>
+          <div id="recentActivity" style="margin-top: 1rem;">
+            <!-- Activity will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for messages -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Message</h3>
+      <p id="modalMessage"></p>
+      <button class="close-modal" onclick="closeModal()">OK</button>
+    </div>
+  </div>
+</body>
+</html>
